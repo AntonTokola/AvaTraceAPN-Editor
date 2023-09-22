@@ -1,9 +1,0 @@
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\AvaTrace APN Editor.pdb
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\AVAMonitoring-Produkt-M80-1.png
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\Blinking squares.gif
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\D3DCompiler_47_cor3.dll
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\PenImc_cor3.dll
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\PresentationNative_cor3.dll
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\vcruntime140_cor3.dll
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\wpfgfx_cor3.dll
-C:\Users\fortokan\OneDrive - Forcit Oy\Työpöytä\AvaTraceAPN Editor\AvaTrace APN Editor.exe
