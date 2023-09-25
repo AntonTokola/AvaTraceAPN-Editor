@@ -12,6 +12,8 @@
   <ItemGroup>
     <None Remove="AVAMonitoring-Produkt-M80-1.png" />
     <None Remove="Blinking squares.gif" />
+    <None Remove="Broken ring.gif" />
+    <None Remove="Spinner-2.gif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +24,12 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Blinking squares.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Broken ring.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Spinner-2.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

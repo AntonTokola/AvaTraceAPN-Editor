@@ -15,12 +15,20 @@ namespace AvaTrace_APN_Editor
         private static readonly string NcatPath = FindNmapPath(); //Etsii nmapin asennushakemiston
         private const string SourceIp = "192.168.0.220";
         private const string TargetIp = "192.168.0.1";
+        //private const string TargetIp = "192.168.1.31";
+        //http://192.168.1.34/
         private const int TargetPort = 4578;
         private const int RetryDelayMilliseconds = 5000; // 5 sekunnin odotus ennen uudelleenyritt‰mist‰
         private const string ConnectionSuccessMessage = "AvaTrace\nCommand Line Interface";
         private string selectedSimProviderDomain;
         private StreamWriter _currentWriter;
+        private Process _process;
+        private string _publicDeviceOutput = "";
 
+        private void ProcessOutputHandler(object sender, DataReceivedEventArgs e)
+        {
+            _publicDeviceOutput += e.Data + "\n";
+        }
 
         public async Task ExecuteNcatCommand()
         {
@@ -41,27 +49,29 @@ namespace AvaTrace_APN_Editor
                     CreateNoWindow = true
                 };
 
-                using (Process process = new Process())
-                {
-                    string outputData = "";
+                    _process = new Process();
+                                  
 
-                    process.StartInfo = startInfo;
-                    process.OutputDataReceived += (sender, e) =>
+                    _process.StartInfo = startInfo;
+                    _process.OutputDataReceived -= ProcessOutputHandler;
+                    _process.OutputDataReceived += (sender, e) =>
                     {
                         //Console.WriteLine(e.Data);
-                        outputData += e.Data + "\n"; // Lis‰‰ uuden rivin jokaisen rivin loppuun
-                        if (outputData.Contains(ConnectionSuccessMessage))
+                        ProcessOutputHandler(sender, e);
+                        //outputData += e.Data + "\n"; // Lis‰‰ uuden rivin jokaisen rivin loppuun
+                        
+                        if (_publicDeviceOutput.Contains(ConnectionSuccessMessage))
                         {
                             isConnected = true;
                         }
                     };
                     //process.ErrorDataReceived += (sender, e) => Console.WriteLine($"{e.Data}");
 
-                    process.Start();
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
+                    _process.Start();
+                    _process.BeginOutputReadLine();
+                    _process.BeginErrorReadLine();
 
-                    await Task.Run(() => process.WaitForExit(10000));
+                    await Task.Run(() => _process.WaitForExit(10000));
 
                     if (isConnected)
                     {
@@ -70,13 +80,13 @@ namespace AvaTrace_APN_Editor
                             statusText.Text = "Yhteys muodostettu onnistuneesti.";
                         });
 
-                        _currentWriter = process.StandardInput;
+                        _currentWriter = _process.StandardInput;
 
                         _currentWriter.WriteLine("sh c"); // Kirjoita kovakoodattu komentosi t‰h‰n
                         Thread.Sleep(5000);
 
-                        string forcedApnValue = ExtractForcedApnValue("ForcedApn", outputData);
-                        unitIdentifier.Text = ExtractForcedApnValue("InstrumentType", outputData) + " - " + ExtractForcedApnValue("InstrumentID", outputData);
+                        string forcedApnValue = ExtractForcedApnValue("ForcedApn", _publicDeviceOutput);
+                        unitIdentifier.Text = ExtractForcedApnValue("InstrumentType", _publicDeviceOutput) + " - " + ExtractForcedApnValue("InstrumentID", _publicDeviceOutput);
                         unitIdentifier.Visible = true;
 
 
@@ -116,9 +126,86 @@ namespace AvaTrace_APN_Editor
                         //Console.WriteLine($"Yhteysyritys ep‰onnistui, kokeillaan uudelleen {RetryDelayMilliseconds / 1000} sekunnin kuluttua...");
                         await Task.Delay(RetryDelayMilliseconds);
                     }
-                }
+                
             }
         }
+
+        private async void applyApnAddressButton_Click(object sender, EventArgs e)
+        {
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                currentApnAddress.Visible = false;
+                label1.Visible = false;
+                label4.Visible = false;
+                apnComboBox.Visible = false;
+                applyApnAddressButton.Visible = false;
+                loadingImage.Visible = true;
+            });
+            
+
+            statusText.Text = "Odota ole hyv‰, APN-osoitetta vaihdetaan..\n\nƒl‰ irrota kaapelia ennen kuin toiminto on suoritettu loppuun.";
+
+            string newApnAddress = "\"\"";
+
+            if (apnTextBox.Text != "")
+            {
+                newApnAddress = apnTextBox.Text;
+            }
+            else
+            {
+                newApnAddress = selectedSimProviderDomain;
+            }
+            _publicDeviceOutput = "";   
+
+            _currentWriter.WriteLine("set para ForcedApn " + newApnAddress);
+            await Task.Delay(5000);
+
+            _currentWriter.WriteLine("sh c");
+            await Task.Delay(5000);     
+
+            _process.OutputDataReceived -= ProcessOutputHandler;
+            _process.OutputDataReceived += (sender, e) =>
+            {
+                _publicDeviceOutput += e.Data + "\n";
+            };
+
+            string forcedApnValue = ExtractForcedApnValue("ForcedApn", _publicDeviceOutput);
+            if (forcedApnValue != null)
+            {
+                if (forcedApnValue == "")
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        currentApnAddress.Text = "APN-osoitteen vaihto onnistui!\n\nMittarin uusi APN-osoite: mittarille on m‰‰ritelty tyhj‰ APN-osoite.\n(t‰m‰ valinta sopii mm. Elisan ja DNA:n liittymille).\n\nNyt voit sulkea sovelluksen.";
+                    });
+                }
+                else
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        currentApnAddress.Text = ($"APN-osoitteen vaihto onnistui!\n\nMittarin uusi APN-osoite:\n{forcedApnValue}\n\nNyt voit sulkea sovelluksen.");
+                    });
+                }
+
+            }
+            else
+            {
+                statusText.Visible = true;
+                statusText.Text = "APN-osoitetta ei lˆytynyt. Mittarille ei ole mahdollisesti m‰‰ritelty osoitetta.\n\nSulje sovellus.";
+            }
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                loadingImage.Visible = false;
+                statusText.Visible = false;
+                currentApnAddress.Visible = true;
+                quitButton.Visible = true;
+            });           
+            
+
+        }
+
 
         public static string FindNmapPath()
         {
@@ -193,7 +280,7 @@ namespace AvaTrace_APN_Editor
             statusText.Text = "Nmap sovellusta etsit‰‰n..";
             avaImage.Visible = false;
             startButton.Visible = false;
-            loadingImage.Visible = true;            
+            loadingImage.Visible = true;
             string nmapPath = FindNmapPath();
             loadingImage.Visible = false;
             if (nmapPath == null)
@@ -202,15 +289,33 @@ namespace AvaTrace_APN_Editor
                 quitButton.Visible = true;
             }
             else
-            {                
+            {
                 statusText.Text = "Nmap-sovellus lˆytyi tietokoneeltasi seuraavasta hakemistosta:\n'" + nmapPath + "'.\n\nSeuraavaksi paina Avan 'Connect'-nappia v‰hint‰‰n 5-sekuntia pohjassa.\nKun ensimm‰inen yhteysvalo alkaa vilkkua, suorita laitteen luku.";
                 scanAvaTraceUnit.Visible = true;
             }
 
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // T‰ss‰ esimerkiss‰ kysyt‰‰n k‰ytt‰j‰lt‰, haluaako h‰n varmasti sulkea sovelluksen.
+            if (MessageBox.Show("Haluatko varmasti sulkea sovelluksen?", "AvaTraceAPN Editor", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;  // Est‰ sovelluksen sulkeminen
+            }
+                //Sulje yhteys laitteeseen
+                _currentWriter.WriteLine("exit");
+
+                //Sulje proserssin kaikki resurssit
+                _process.Dispose();
+
+            await Task.Delay(2000);
+            
+            // ... voit lis‰t‰ muita koodirivej‰ t‰h‰n, jotka suoritetaan ennen sovelluksen sulkemista
+
+        }
+            private void Form1_Load(object sender, EventArgs e)
+        {
+            this.FormClosing += MainForm_FormClosing;
             label1.Visible = false;
             label4.Visible = false;
             label3.Visible = false;
@@ -227,10 +332,7 @@ namespace AvaTrace_APN_Editor
             apnComboBox.Items.Add("DNA (IoT) - APN osoitetta ei m‰‰ritet‰");
             apnComboBox.Items.Add("Telia (IoT/Pool) - APN osoite m‰‰ritet‰‰n");
             apnComboBox.Items.Add("M‰‰rittele APN-osoite manuaalisesti");
-            loadingImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.Blinking squares.gif"));
-            loadingImage.Left = (this.ClientSize.Width - loadingImage.Width) / 2;
-            loadingImage.Top = (this.ClientSize.Height - loadingImage.Height) / 2;
-            loadingImage.Size = new Size(128, 128);
+            loadingImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.Spinner-2.gif"));
 
             avaImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.AVAMonitoring-Produkt-M80-1.png"));
         }
@@ -284,25 +386,7 @@ namespace AvaTrace_APN_Editor
 
         }
 
-        private void applyApnAddressButton_Click(object sender, EventArgs e)
-        {
-            string newApnAddress = "\"\"";
-
-
-            if (apnTextBox.Text != "")
-            {
-                newApnAddress = apnTextBox.Text;
-            }
-            else
-            {
-                newApnAddress = selectedSimProviderDomain;
-            }
-
-            _currentWriter.WriteLine("set para ForcedApn " + newApnAddress); //t‰m‰n suoritus pit‰isi saada "applyApnAddressButton" napin taakse!
-            Thread.Sleep(5000);
-            _currentWriter.WriteLine("sh c");
-            Thread.Sleep(5000);
-        }
+     
 
         private void apnTextBox_TextChanged(object sender, EventArgs e)
         {

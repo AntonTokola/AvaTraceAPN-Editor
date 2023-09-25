@@ -1,0 +1,22 @@
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.csproj.AssemblyReference.cache
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace_APN_Editor.Form1.resources
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.csproj.GenerateResource.cache
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.GeneratedMSBuildEditorConfig.editorconfig
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.AssemblyInfoInputs.cache
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.AssemblyInfo.cs
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.csproj.CoreCompileInputs.cache
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AvaTrace APN Editor.exe
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AvaTrace APN Editor.deps.json
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AvaTrace APN Editor.runtimeconfig.json
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AvaTrace APN Editor.dll
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AvaTrace APN Editor.pdb
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.dll
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\refint\AvaTrace APN Editor.dll
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.pdb
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace APN Editor.genruntimeconfig.cache
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\ref\AvaTrace APN Editor.dll
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\Blinking squares.gif
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-windows\AvaTrace_APN_Editor.Properties.Resources.resources
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AVAMonitoring-Produkt-M80-1.png
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\Broken ring.gif
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\Spinner-2.gif
