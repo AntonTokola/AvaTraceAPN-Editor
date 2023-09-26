@@ -18,3 +18,5 @@ C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.0-windows\AvaTrace APN Editor.pdb
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.0-windows\AvaTrace APN Editor.genruntimeconfig.cache
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.0-windows\ref\AvaTrace APN Editor.dll
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Release\net6.0-windows\Broken ring.gif
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Release\net6.0-windows\Spinner-2.gif

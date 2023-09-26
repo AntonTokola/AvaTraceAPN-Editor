@@ -49,84 +49,95 @@ namespace AvaTrace_APN_Editor
                     CreateNoWindow = true
                 };
 
-                    _process = new Process();
-                                  
+                _process = new Process();
 
-                    _process.StartInfo = startInfo;
-                    _process.OutputDataReceived -= ProcessOutputHandler;
-                    _process.OutputDataReceived += (sender, e) =>
+
+                _process.StartInfo = startInfo;
+                _process.OutputDataReceived -= ProcessOutputHandler;
+                _process.OutputDataReceived += (sender, e) =>
+                {
+                    //Console.WriteLine(e.Data);
+                    ProcessOutputHandler(sender, e);
+                    //outputData += e.Data + "\n"; // Lisää uuden rivin jokaisen rivin loppuun
+
+                    if (_publicDeviceOutput.Contains(ConnectionSuccessMessage))
                     {
-                        //Console.WriteLine(e.Data);
-                        ProcessOutputHandler(sender, e);
-                        //outputData += e.Data + "\n"; // Lisää uuden rivin jokaisen rivin loppuun
-                        
-                        if (_publicDeviceOutput.Contains(ConnectionSuccessMessage))
-                        {
-                            isConnected = true;
-                        }
-                    };
-                    //process.ErrorDataReceived += (sender, e) => Console.WriteLine($"{e.Data}");
+                        isConnected = true;
+                    }
+                };
+                //process.ErrorDataReceived += (sender, e) => Console.WriteLine($"{e.Data}");
 
-                    _process.Start();
-                    _process.BeginOutputReadLine();
-                    _process.BeginErrorReadLine();
+                _process.Start();
+                _process.BeginOutputReadLine();
+                _process.BeginErrorReadLine();
 
-                    await Task.Run(() => _process.WaitForExit(10000));
+                await Task.Run(() => _process.WaitForExit(10000));
 
-                    if (isConnected)
+                if (isConnected)
+                {
+                    this.Invoke((MethodInvoker)delegate
                     {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            statusText.Text = "Yhteys muodostettu onnistuneesti.";
-                        });
+                        statusText.Text = "Yhteys muodostettu onnistuneesti.";
+                    });                    
 
-                        _currentWriter = _process.StandardInput;
+                    _currentWriter = _process.StandardInput;
 
-                        _currentWriter.WriteLine("sh c"); // Kirjoita kovakoodattu komentosi tähän
-                        Thread.Sleep(5000);
+                    _currentWriter.WriteLine("sh c"); // Kirjoita kovakoodattu komentosi tähän
+                    Thread.Sleep(5000);
 
-                        string forcedApnValue = ExtractForcedApnValue("ForcedApn", _publicDeviceOutput);
+                    string forcedApnValue = ExtractForcedApnValue("ForcedApn", _publicDeviceOutput);
+                    this.Invoke((MethodInvoker)delegate
+                    {
                         unitIdentifier.Text = ExtractForcedApnValue("InstrumentType", _publicDeviceOutput) + " - " + ExtractForcedApnValue("InstrumentID", _publicDeviceOutput);
-                        unitIdentifier.Visible = true;
+                                            unitIdentifier.Visible = true;
+                    });
+                    
 
 
-                        if (forcedApnValue != null)
+                    if (forcedApnValue != null)
+                    {
+                        if (forcedApnValue == "")
                         {
-                            if (forcedApnValue == "")
+                            this.Invoke((MethodInvoker)delegate
                             {
-                                this.Invoke((MethodInvoker)delegate
-                                {
-                                    currentApnAddress.Text = "Mittarille ei ole määritetty tällä hetkellä erillistä APN-osoitetta.\n(tämä valinta sopii mm. Elisan ja DNA:n liittymille).";
-                                });
-                            }
-                            else
-                            {
-                                this.Invoke((MethodInvoker)delegate
-                                {
-                                    currentApnAddress.Text = ($"Mittarin nykyinen APN-osoite:\n{forcedApnValue}");
-                                });
-                            }
-
+                                currentApnAddress.Text = "Mittarille ei ole määritetty tällä hetkellä erillistä APN-osoitetta.\n(tämä valinta sopii mm. Elisan ja DNA:n liittymille).";
+                            });
                         }
                         else
                         {
-                            statusText.Text = "APN-osoitetta ei löytynyt. Mittarille ei ole mahdollisesti määritelty osoitetta.";
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                currentApnAddress.Text = ($"Mittarin nykyinen APN-osoite:\n{forcedApnValue}");
+                            });
                         }
-
-                        label1.Visible = true;
-                        label4.Visible = true;
-                        apnComboBox.Visible = true;
-                        applyApnAddressButton.Visible = true;
-
-
 
                     }
                     else
                     {
-                        //Console.WriteLine($"Yhteysyritys epäonnistui, kokeillaan uudelleen {RetryDelayMilliseconds / 1000} sekunnin kuluttua...");
-                        await Task.Delay(RetryDelayMilliseconds);
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            statusText.Text = "APN-osoitetta ei löytynyt. Mittarille ei ole mahdollisesti määritelty osoitetta.";
+                        });
+                        
                     }
-                
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        label1.Visible = true;
+                        label4.Visible = true;
+                        apnComboBox.Visible = true;
+                        applyApnAddressButton.Visible = true;
+                    });
+                    
+
+
+
+                }
+                else
+                {
+                    //Console.WriteLine($"Yhteysyritys epäonnistui, kokeillaan uudelleen {RetryDelayMilliseconds / 1000} sekunnin kuluttua...");
+                    await Task.Delay(RetryDelayMilliseconds);
+                }
+
             }
         }
 
@@ -142,7 +153,7 @@ namespace AvaTrace_APN_Editor
                 applyApnAddressButton.Visible = false;
                 loadingImage.Visible = true;
             });
-            
+
 
             statusText.Text = "Odota ole hyvä, APN-osoitetta vaihdetaan..\n\nÄlä irrota kaapelia ennen kuin toiminto on suoritettu loppuun.";
 
@@ -156,13 +167,13 @@ namespace AvaTrace_APN_Editor
             {
                 newApnAddress = selectedSimProviderDomain;
             }
-            _publicDeviceOutput = "";   
+            _publicDeviceOutput = "";
 
             _currentWriter.WriteLine("set para ForcedApn " + newApnAddress);
             await Task.Delay(5000);
 
             _currentWriter.WriteLine("sh c");
-            await Task.Delay(5000);     
+            await Task.Delay(5000);
 
             _process.OutputDataReceived -= ProcessOutputHandler;
             _process.OutputDataReceived += (sender, e) =>
@@ -201,8 +212,8 @@ namespace AvaTrace_APN_Editor
                 statusText.Visible = false;
                 currentApnAddress.Visible = true;
                 quitButton.Visible = true;
-            });           
-            
+            });
+
 
         }
 
@@ -302,18 +313,20 @@ namespace AvaTrace_APN_Editor
             {
                 e.Cancel = true;  // Estä sovelluksen sulkeminen
             }
+            if (_currentWriter != null)
+            {
                 //Sulje yhteys laitteeseen
                 _currentWriter.WriteLine("exit");
-
                 //Sulje proserssin kaikki resurssit
                 _process.Dispose();
+                await Task.Delay(2000);
+            }
 
-            await Task.Delay(2000);
-            
-            // ... voit lisätä muita koodirivejä tähän, jotka suoritetaan ennen sovelluksen sulkemista
+
+
 
         }
-            private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             this.FormClosing += MainForm_FormClosing;
             label1.Visible = false;
@@ -339,13 +352,22 @@ namespace AvaTrace_APN_Editor
 
         private async void scanAvaTraceUnit_Click(object sender, EventArgs e)
         {
-            quitButton.Visible = true;
-            statusText.Text = "Yhteyttä muodostetaan, tässä saattaa kestää hetki..";
-            scanAvaTraceUnit.Visible = false;
-            loadingImage.Visible = true;
-            await ExecuteNcatCommand();
-            loadingImage.Visible = false;
-            quitButton.Visible = false;
+            this.Invoke((MethodInvoker)delegate
+            {
+                quitButton.Visible = true;
+                statusText.Text = "Yhteyttä muodostetaan, tässä saattaa kestää hetki..";
+                scanAvaTraceUnit.Visible = false;
+                loadingImage.Visible = true;
+            });
+
+            await Task.Run(() => ExecuteNcatCommand());
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                loadingImage.Visible = false;
+                quitButton.Visible = false;
+            });
+            
         }
 
         private void apnComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -386,7 +408,7 @@ namespace AvaTrace_APN_Editor
 
         }
 
-     
+
 
         private void apnTextBox_TextChanged(object sender, EventArgs e)
         {

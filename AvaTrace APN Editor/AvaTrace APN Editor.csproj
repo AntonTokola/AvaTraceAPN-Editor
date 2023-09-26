@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>EthernetCable_icon-icons.com_55235.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,10 @@
     <None Remove="Blinking squares.gif" />
     <None Remove="Broken ring.gif" />
     <None Remove="Spinner-2.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="EthernetCable_icon-icons.com_55235.ico" />
   </ItemGroup>
 
   <ItemGroup>

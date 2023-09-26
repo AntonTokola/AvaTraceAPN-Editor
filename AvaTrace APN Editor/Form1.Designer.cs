@@ -46,13 +46,14 @@
             panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)loadingImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)avaImage).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(-5, 126);
+            label1.Location = new Point(2, 125);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(554, 30);
@@ -203,6 +204,7 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -225,7 +227,6 @@
             Controls.Add(label3);
             Controls.Add(apnComboBox);
             Controls.Add(apnTextBox);
-            Controls.Add(label1);
             Controls.Add(scanAvaTraceUnit);
             Controls.Add(loadingImage);
             Controls.Add(avaImage);
@@ -237,6 +238,8 @@
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)loadingImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)avaImage).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
