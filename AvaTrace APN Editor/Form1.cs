@@ -78,7 +78,8 @@ namespace AvaTrace_APN_Editor
                     this.Invoke((MethodInvoker)delegate
                     {
                         statusText.Text = "Yhteys muodostettu onnistuneesti.";
-                    });                    
+                        confirmedImage.Visible = true;
+                    });
 
                     _currentWriter = _process.StandardInput;
 
@@ -89,9 +90,9 @@ namespace AvaTrace_APN_Editor
                     this.Invoke((MethodInvoker)delegate
                     {
                         unitIdentifier.Text = ExtractForcedApnValue("InstrumentType", _publicDeviceOutput) + " - " + ExtractForcedApnValue("InstrumentID", _publicDeviceOutput);
-                                            unitIdentifier.Visible = true;
+                        unitIdentifier.Visible = true;
                     });
-                    
+
 
 
                     if (forcedApnValue != null)
@@ -118,7 +119,7 @@ namespace AvaTrace_APN_Editor
                         {
                             statusText.Text = "APN-osoitetta ei löytynyt. Mittarille ei ole mahdollisesti määritelty osoitetta.";
                         });
-                        
+
                     }
                     this.Invoke((MethodInvoker)delegate
                     {
@@ -127,7 +128,7 @@ namespace AvaTrace_APN_Editor
                         apnComboBox.Visible = true;
                         applyApnAddressButton.Visible = true;
                     });
-                    
+
 
 
 
@@ -146,6 +147,7 @@ namespace AvaTrace_APN_Editor
 
             this.Invoke((MethodInvoker)delegate
             {
+                confirmedImage.Visible = false;
                 currentApnAddress.Visible = false;
                 label1.Visible = false;
                 label4.Visible = false;
@@ -339,6 +341,8 @@ namespace AvaTrace_APN_Editor
             unitIdentifier.Visible = false;
             statusText.AutoSize = true;
             quitButton.Visible = false;
+            confirmedImage.Visible = false;
+            confirmedImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.confirmed_1.png"));
 
             loadingImage.Visible = false;
             apnComboBox.Items.Add("Elisa (IoT/Pool) - APN osoitetta ei määritetä");
@@ -367,7 +371,7 @@ namespace AvaTrace_APN_Editor
                 loadingImage.Visible = false;
                 quitButton.Visible = false;
             });
-            
+
         }
 
         private void apnComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -423,6 +427,11 @@ namespace AvaTrace_APN_Editor
         private void quitButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

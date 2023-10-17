@@ -44,9 +44,11 @@
             avaImage = new PictureBox();
             quitButton = new Button();
             panel1 = new Panel();
+            confirmedImage = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)loadingImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)avaImage).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)confirmedImage).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -105,7 +107,7 @@
             // startButton
             // 
             startButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            startButton.Location = new Point(118, 7);
+            startButton.Location = new Point(121, 7);
             startButton.Margin = new Padding(2);
             startButton.Name = "startButton";
             startButton.Size = new Size(335, 32);
@@ -204,12 +206,24 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(confirmedImage);
             panel1.Controls.Add(label1);
+            panel1.Controls.Add(startButton);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(560, 270);
             panel1.TabIndex = 17;
+            // 
+            // confirmedImage
+            // 
+            confirmedImage.Location = new Point(246, 7);
+            confirmedImage.Name = "confirmedImage";
+            confirmedImage.Size = new Size(22, 22);
+            confirmedImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            confirmedImage.TabIndex = 1;
+            confirmedImage.TabStop = false;
+            confirmedImage.Click += pictureBox1_Click;
             // 
             // Form1
             // 
@@ -222,7 +236,6 @@
             Controls.Add(currentApnAddress);
             Controls.Add(statusText);
             Controls.Add(applyApnAddressButton);
-            Controls.Add(startButton);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(apnComboBox);
@@ -240,6 +253,7 @@
             ((System.ComponentModel.ISupportInitialize)avaImage).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)confirmedImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -261,5 +275,6 @@
         private PictureBox avaImage;
         private Button quitButton;
         private Panel panel1;
+        private PictureBox confirmedImage;
     }
 }

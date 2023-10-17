@@ -20,3 +20,4 @@ C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Debug\net6.0-
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\AVAMonitoring-Produkt-M80-1.png
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\Broken ring.gif
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\Spinner-2.gif
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Debug\net6.0-windows\confirmed_1.png
