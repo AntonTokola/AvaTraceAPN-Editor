@@ -14,6 +14,11 @@
         },
         "runtime": {
           "AvaTrace APN Editor.dll": {}
+        },
+        "resources": {
+          "fi/AvaTrace APN Editor.resources.dll": {
+            "locale": "fi"
+          }
         }
       },
       "runtimepack.Microsoft.NETCore.App.Runtime.win-x86/6.0.20": {

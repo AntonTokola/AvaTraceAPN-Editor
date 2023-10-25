@@ -522,3 +522,7 @@ C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Release\net6.0-windows\win-x86\Broken ring.gif
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Release\net6.0-windows\win-x86\Spinner-2.gif
 C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Release\net6.0-windows\win-x86\confirmed_1.png
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\bin\Release\net6.0-windows\win-x86\fi\AvaTrace APN Editor.resources.dll
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.0-windows\win-x86\AvaTrace_APN_Editor.Strings.resources
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.0-windows\win-x86\AvaTrace_APN_Editor.Strings.fi.resources
+C:\VS Backend-projects\AvaTrace APN Editor\AvaTrace APN Editor\obj\Release\net6.0-windows\win-x86\fi\AvaTrace APN Editor.resources.dll

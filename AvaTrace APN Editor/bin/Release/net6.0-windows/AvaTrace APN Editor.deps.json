@@ -9,6 +9,11 @@
       "AvaTrace APN Editor/1.0.0": {
         "runtime": {
           "AvaTrace APN Editor.dll": {}
+        },
+        "resources": {
+          "fi/AvaTrace APN Editor.resources.dll": {
+            "locale": "fi"
+          }
         }
       }
     }

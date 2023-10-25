@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            label1 = new Label();
+            APNAddressInfoText = new Label();
             apnTextBox = new TextBox();
             apnComboBox = new ComboBox();
-            label3 = new Label();
-            label4 = new Label();
+            addAddressManually = new Label();
+            pickUpAddressFromList = new Label();
             startButton = new Button();
             applyApnAddressButton = new Button();
             statusText = new Label();
@@ -44,6 +44,8 @@
             avaImage = new PictureBox();
             quitButton = new Button();
             panel1 = new Panel();
+            engLanguageRadioButton = new RadioButton();
+            finLanguageRadioButton = new RadioButton();
             confirmedImage = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)loadingImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)avaImage).BeginInit();
@@ -51,80 +53,68 @@
             ((System.ComponentModel.ISupportInitialize)confirmedImage).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // APNAddressInfoText
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(2, 125);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(554, 30);
-            label1.TabIndex = 0;
-            label1.Text = "Syötä uusi APN-osoite manuaalisesti, tai valitse alasvetolaatikosta valmis tietyn operaattorin osoite.\r\n\r\n";
-            label1.Click += label1_Click;
+            APNAddressInfoText.AutoSize = true;
+            APNAddressInfoText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            APNAddressInfoText.Location = new Point(3, 208);
+            APNAddressInfoText.Name = "APNAddressInfoText";
+            APNAddressInfoText.Size = new Size(0, 25);
+            APNAddressInfoText.TabIndex = 0;
+            APNAddressInfoText.Click += label1_Click;
             // 
             // apnTextBox
             // 
-            apnTextBox.Location = new Point(249, 189);
-            apnTextBox.Margin = new Padding(2);
+            apnTextBox.Location = new Point(356, 315);
             apnTextBox.Name = "apnTextBox";
-            apnTextBox.Size = new Size(300, 23);
+            apnTextBox.Size = new Size(427, 31);
             apnTextBox.TabIndex = 1;
             apnTextBox.TextChanged += apnTextBox_TextChanged;
             // 
             // apnComboBox
             // 
             apnComboBox.FormattingEnabled = true;
-            apnComboBox.Location = new Point(249, 158);
-            apnComboBox.Margin = new Padding(2);
+            apnComboBox.Location = new Point(356, 263);
             apnComboBox.Name = "apnComboBox";
-            apnComboBox.Size = new Size(300, 23);
+            apnComboBox.Size = new Size(427, 33);
             apnComboBox.TabIndex = 3;
             apnComboBox.SelectedIndexChanged += apnComboBox_SelectedIndexChanged;
             // 
-            // label3
+            // addAddressManually
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(66, 191);
-            label3.Margin = new Padding(2, 0, 2, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(155, 15);
-            label3.TabIndex = 5;
-            label3.Text = "Syötä osoite manuaalisesti:";
+            addAddressManually.AutoSize = true;
+            addAddressManually.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            addAddressManually.Location = new Point(94, 318);
+            addAddressManually.Name = "addAddressManually";
+            addAddressManually.Size = new Size(0, 25);
+            addAddressManually.TabIndex = 5;
             // 
-            // label4
+            // pickUpAddressFromList
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(66, 160);
-            label4.Margin = new Padding(2, 0, 2, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(124, 15);
-            label4.TabIndex = 6;
-            label4.Text = "Valitse osoite listasta:";
+            pickUpAddressFromList.AutoSize = true;
+            pickUpAddressFromList.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            pickUpAddressFromList.Location = new Point(94, 267);
+            pickUpAddressFromList.Name = "pickUpAddressFromList";
+            pickUpAddressFromList.Size = new Size(0, 25);
+            pickUpAddressFromList.TabIndex = 6;
             // 
             // startButton
             // 
             startButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            startButton.Location = new Point(121, 7);
-            startButton.Margin = new Padding(2);
+            startButton.Location = new Point(173, 12);
             startButton.Name = "startButton";
-            startButton.Size = new Size(335, 32);
+            startButton.Size = new Size(479, 53);
             startButton.TabIndex = 7;
-            startButton.Text = "Aloita tarkistamalla Nmap-sovelluksen sijainti";
             startButton.UseVisualStyleBackColor = true;
             startButton.Click += button1_Click;
             // 
             // applyApnAddressButton
             // 
             applyApnAddressButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            applyApnAddressButton.Location = new Point(314, 223);
-            applyApnAddressButton.Margin = new Padding(2);
+            applyApnAddressButton.Location = new Point(449, 372);
             applyApnAddressButton.Name = "applyApnAddressButton";
-            applyApnAddressButton.Size = new Size(234, 24);
+            applyApnAddressButton.Size = new Size(334, 40);
             applyApnAddressButton.TabIndex = 8;
-            applyApnAddressButton.Text = "Syötä osoite laitteelle";
             applyApnAddressButton.UseVisualStyleBackColor = true;
             applyApnAddressButton.Click += applyApnAddressButton_Click;
             // 
@@ -132,21 +122,18 @@
             // 
             statusText.AutoSize = true;
             statusText.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            statusText.Location = new Point(11, 9);
-            statusText.Margin = new Padding(2, 0, 2, 0);
+            statusText.Location = new Point(16, 15);
             statusText.Name = "statusText";
-            statusText.Size = new Size(0, 19);
+            statusText.Size = new Size(0, 28);
             statusText.TabIndex = 9;
             // 
             // scanAvaTraceUnit
             // 
             scanAvaTraceUnit.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            scanAvaTraceUnit.Location = new Point(159, 117);
-            scanAvaTraceUnit.Margin = new Padding(2);
+            scanAvaTraceUnit.Location = new Point(227, 195);
             scanAvaTraceUnit.Name = "scanAvaTraceUnit";
-            scanAvaTraceUnit.Size = new Size(241, 58);
+            scanAvaTraceUnit.Size = new Size(344, 97);
             scanAvaTraceUnit.TabIndex = 10;
-            scanAvaTraceUnit.Text = "Suorita laitteen luku";
             scanAvaTraceUnit.UseVisualStyleBackColor = true;
             scanAvaTraceUnit.Click += scanAvaTraceUnit_Click;
             // 
@@ -154,9 +141,10 @@
             // 
             currentApnAddress.AutoSize = true;
             currentApnAddress.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            currentApnAddress.Location = new Point(11, 58);
+            currentApnAddress.Location = new Point(16, 97);
+            currentApnAddress.Margin = new Padding(4, 0, 4, 0);
             currentApnAddress.Name = "currentApnAddress";
-            currentApnAddress.Size = new Size(0, 19);
+            currentApnAddress.Size = new Size(0, 28);
             currentApnAddress.TabIndex = 11;
             currentApnAddress.Click += currentApnAddress_Click;
             // 
@@ -165,17 +153,17 @@
             unitIdentifier.AutoSize = true;
             unitIdentifier.BorderStyle = BorderStyle.Fixed3D;
             unitIdentifier.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            unitIdentifier.Location = new Point(372, 9);
+            unitIdentifier.Location = new Point(531, 15);
+            unitIdentifier.Margin = new Padding(4, 0, 4, 0);
             unitIdentifier.Name = "unitIdentifier";
-            unitIdentifier.Size = new Size(2, 23);
+            unitIdentifier.Size = new Size(2, 34);
             unitIdentifier.TabIndex = 13;
             // 
             // loadingImage
             // 
-            loadingImage.Location = new Point(239, 80);
-            loadingImage.Margin = new Padding(2);
+            loadingImage.Location = new Point(341, 133);
             loadingImage.Name = "loadingImage";
-            loadingImage.Size = new Size(89, 87);
+            loadingImage.Size = new Size(127, 145);
             loadingImage.SizeMode = PictureBoxSizeMode.StretchImage;
             loadingImage.TabIndex = 14;
             loadingImage.TabStop = false;
@@ -183,10 +171,9 @@
             // 
             // avaImage
             // 
-            avaImage.Location = new Point(172, 44);
-            avaImage.Margin = new Padding(2);
+            avaImage.Location = new Point(246, 73);
             avaImage.Name = "avaImage";
-            avaImage.Size = new Size(239, 218);
+            avaImage.Size = new Size(341, 363);
             avaImage.SizeMode = PictureBoxSizeMode.StretchImage;
             avaImage.TabIndex = 15;
             avaImage.TabStop = false;
@@ -194,32 +181,60 @@
             // quitButton
             // 
             quitButton.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            quitButton.Location = new Point(212, 211);
-            quitButton.Margin = new Padding(2);
+            quitButton.Location = new Point(303, 352);
             quitButton.Name = "quitButton";
-            quitButton.Size = new Size(141, 32);
+            quitButton.Size = new Size(201, 53);
             quitButton.TabIndex = 16;
-            quitButton.Text = "Lopeta";
             quitButton.UseVisualStyleBackColor = true;
             quitButton.Click += quitButton_Click;
             // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(engLanguageRadioButton);
+            panel1.Controls.Add(finLanguageRadioButton);
             panel1.Controls.Add(confirmedImage);
-            panel1.Controls.Add(label1);
+            panel1.Controls.Add(APNAddressInfoText);
             panel1.Controls.Add(startButton);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(560, 270);
+            panel1.Size = new Size(800, 450);
             panel1.TabIndex = 17;
+            // 
+            // engLanguageRadioButton
+            // 
+            engLanguageRadioButton.AutoSize = true;
+            engLanguageRadioButton.Location = new Point(16, 137);
+            engLanguageRadioButton.Margin = new Padding(4, 5, 4, 5);
+            engLanguageRadioButton.Name = "engLanguageRadioButton";
+            engLanguageRadioButton.Size = new Size(93, 29);
+            engLanguageRadioButton.TabIndex = 9;
+            engLanguageRadioButton.TabStop = true;
+            engLanguageRadioButton.Text = "English";
+            engLanguageRadioButton.UseVisualStyleBackColor = true;
+            engLanguageRadioButton.CheckedChanged += engLanguageRadioButton_CheckedChanged;
+            // 
+            // finLanguageRadioButton
+            // 
+            finLanguageRadioButton.AutoSize = true;
+            finLanguageRadioButton.Location = new Point(16, 95);
+            finLanguageRadioButton.Margin = new Padding(4, 5, 4, 5);
+            finLanguageRadioButton.Name = "finLanguageRadioButton";
+            finLanguageRadioButton.Size = new Size(92, 29);
+            finLanguageRadioButton.TabIndex = 8;
+            finLanguageRadioButton.TabStop = true;
+            finLanguageRadioButton.Text = "Finnish";
+            finLanguageRadioButton.UseVisualStyleBackColor = true;
+            finLanguageRadioButton.CheckedChanged += finLanguageRadioButton_CheckedChanged;
             // 
             // confirmedImage
             // 
-            confirmedImage.Location = new Point(246, 7);
+            confirmedImage.Location = new Point(351, 12);
+            confirmedImage.Margin = new Padding(4, 5, 4, 5);
             confirmedImage.Name = "confirmedImage";
-            confirmedImage.Size = new Size(22, 22);
+            confirmedImage.Size = new Size(31, 37);
             confirmedImage.SizeMode = PictureBoxSizeMode.StretchImage;
             confirmedImage.TabIndex = 1;
             confirmedImage.TabStop = false;
@@ -227,25 +242,25 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(560, 270);
+            ClientSize = new Size(800, 450);
             Controls.Add(quitButton);
             Controls.Add(unitIdentifier);
             Controls.Add(currentApnAddress);
             Controls.Add(statusText);
             Controls.Add(applyApnAddressButton);
-            Controls.Add(label4);
-            Controls.Add(label3);
+            Controls.Add(pickUpAddressFromList);
+            Controls.Add(addAddressManually);
             Controls.Add(apnComboBox);
             Controls.Add(apnTextBox);
             Controls.Add(scanAvaTraceUnit);
             Controls.Add(loadingImage);
             Controls.Add(avaImage);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(2);
             Name = "Form1";
             Text = "AvaTraceAPN Editor";
             Load += Form1_Load;
@@ -260,11 +275,11 @@
 
         #endregion
 
-        private Label label1;
+        private Label APNAddressInfoText;
         private TextBox apnTextBox;
         private ComboBox apnComboBox;
-        private Label label3;
-        private Label label4;
+        private Label addAddressManually;
+        private Label pickUpAddressFromList;
         private Button startButton;
         private Button applyApnAddressButton;
         private Label statusText;
@@ -276,5 +291,7 @@
         private Button quitButton;
         private Panel panel1;
         private PictureBox confirmedImage;
+        private RadioButton engLanguageRadioButton;
+        private RadioButton finLanguageRadioButton;
     }
 }

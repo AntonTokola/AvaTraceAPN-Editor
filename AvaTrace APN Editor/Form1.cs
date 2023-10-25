@@ -24,6 +24,30 @@ namespace AvaTrace_APN_Editor
         private StreamWriter _currentWriter;
         private Process _process;
         private string _publicDeviceOutput = "";
+        string selectedLanguage;
+
+        //Language variables
+        public string statusText_yhteysMuodostettuOnnistuneesti;
+        public string currentApnAddress_apnOsoitettaEiOleMääritetty;
+        public string currentApnAddress_nykyinenOsoite;
+        public string statusText_apnOsoitettaEiLöytynyt;
+        public string statusText_osoitettaAPNosoitettaVaihdetaan;
+        public string currentApnAddress_APNosoitteenVaihtoOnnistuiEiApnOsoitettaMääritelty;
+        public string currentApnAddress_APNosoiteVaihdettu_1;
+        public string currentApnAddress_APNosoiteVaihdettu_2;
+        public string statusText_APNosoitettaEiLöytynytSuljeSovellus;
+        public string statusText_nmapAsennustaEiLöydy;
+        public string statusText_nmapSovellusLöytyi_1;
+        public string statusText_nmapSovellusLöytyi_2;
+        public string statusText_nmapSovellustaEtsitään;
+        public string messageBox_HaluatkoSulkeaSovelluksen;
+        public string statusText_yhteyttäMuodostetaan;
+        public string scanAvaTraceUnitButton_text;
+        public string quitButton_text;
+        public string applyApnAddressButton_text;
+        public string APNAddressInfoText_text;
+        public string pickUpAddressFromList_text;
+        public string addAddressManually_text;
 
         private void ProcessOutputHandler(object sender, DataReceivedEventArgs e)
         {
@@ -77,9 +101,11 @@ namespace AvaTrace_APN_Editor
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        statusText.Text = "Yhteys muodostettu onnistuneesti.";
+                        statusText.Text = statusText_yhteysMuodostettuOnnistuneesti;
                         confirmedImage.Visible = true;
                     });
+
+
 
                     _currentWriter = _process.StandardInput;
 
@@ -101,14 +127,14 @@ namespace AvaTrace_APN_Editor
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                currentApnAddress.Text = "Mittarille ei ole määritetty tällä hetkellä erillistä APN-osoitetta.\n(tämä valinta sopii mm. Elisan ja DNA:n liittymille).";
+                                currentApnAddress.Text = currentApnAddress_apnOsoitettaEiOleMääritetty;
                             });
                         }
                         else
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                currentApnAddress.Text = ($"Mittarin nykyinen APN-osoite:\n{forcedApnValue}");
+                                currentApnAddress.Text = (currentApnAddress_nykyinenOsoite + $"\n{forcedApnValue}");
                             });
                         }
 
@@ -117,14 +143,14 @@ namespace AvaTrace_APN_Editor
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            statusText.Text = "APN-osoitetta ei löytynyt. Mittarille ei ole mahdollisesti määritelty osoitetta.";
+                            statusText.Text = statusText_apnOsoitettaEiLöytynyt;
                         });
 
                     }
                     this.Invoke((MethodInvoker)delegate
                     {
-                        label1.Visible = true;
-                        label4.Visible = true;
+                        APNAddressInfoText.Visible = true;
+                        pickUpAddressFromList.Visible = true;
                         apnComboBox.Visible = true;
                         applyApnAddressButton.Visible = true;
                     });
@@ -149,15 +175,15 @@ namespace AvaTrace_APN_Editor
             {
                 confirmedImage.Visible = false;
                 currentApnAddress.Visible = false;
-                label1.Visible = false;
-                label4.Visible = false;
+                APNAddressInfoText.Visible = false;
+                pickUpAddressFromList.Visible = false;
                 apnComboBox.Visible = false;
                 applyApnAddressButton.Visible = false;
                 loadingImage.Visible = true;
             });
 
 
-            statusText.Text = "Odota ole hyvä, APN-osoitetta vaihdetaan..\n\nÄlä irrota kaapelia ennen kuin toiminto on suoritettu loppuun.";
+            statusText.Text = statusText_osoitettaAPNosoitettaVaihdetaan;
 
             string newApnAddress = "\"\"";
 
@@ -190,14 +216,14 @@ namespace AvaTrace_APN_Editor
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        currentApnAddress.Text = "APN-osoitteen vaihto onnistui!\n\nMittarin uusi APN-osoite: mittarille on määritelty tyhjä APN-osoite.\n(tämä valinta sopii mm. Elisan ja DNA:n liittymille).\n\nNyt voit sulkea sovelluksen.";
+                        currentApnAddress.Text = currentApnAddress_APNosoitteenVaihtoOnnistuiEiApnOsoitettaMääritelty;
                     });
                 }
                 else
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        currentApnAddress.Text = ($"APN-osoitteen vaihto onnistui!\n\nMittarin uusi APN-osoite:\n{forcedApnValue}\n\nNyt voit sulkea sovelluksen.");
+                        currentApnAddress.Text = (currentApnAddress_APNosoiteVaihdettu_1 + $"\n{forcedApnValue}\n\n" + currentApnAddress_APNosoiteVaihdettu_2);
                     });
                 }
 
@@ -205,7 +231,7 @@ namespace AvaTrace_APN_Editor
             else
             {
                 statusText.Visible = true;
-                statusText.Text = "APN-osoitetta ei löytynyt. Mittarille ei ole mahdollisesti määritelty osoitetta.\n\nSulje sovellus.";
+                statusText.Text = statusText_APNosoitettaEiLöytynytSuljeSovellus;
             }
 
             this.Invoke((MethodInvoker)delegate
@@ -290,7 +316,9 @@ namespace AvaTrace_APN_Editor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            statusText.Text = "Nmap sovellusta etsitään..";
+            finLanguageRadioButton.Visible = false;
+            engLanguageRadioButton.Visible = false;
+            statusText.Text = statusText_nmapSovellustaEtsitään;
             avaImage.Visible = false;
             startButton.Visible = false;
             loadingImage.Visible = true;
@@ -298,12 +326,12 @@ namespace AvaTrace_APN_Editor
             loadingImage.Visible = false;
             if (nmapPath == null)
             {
-                statusText.Text = "Nmap-sovelluksen asennushakemistoa ei löydy.\nAPN-osoitteen määritystä ei voida tehdä.\nSulje ohjelma, ja asenna Nmap ensin.";
+                statusText.Text = statusText_nmapAsennustaEiLöydy;
                 quitButton.Visible = true;
             }
             else
             {
-                statusText.Text = "Nmap-sovellus löytyi tietokoneeltasi seuraavasta hakemistosta:\n'" + nmapPath + "'.\n\nSeuraavaksi paina Avan 'Connect'-nappia vähintään 5-sekuntia pohjassa.\nKun ensimmäinen yhteysvalo alkaa vilkkua, suorita laitteen luku.";
+                statusText.Text = statusText_nmapSovellusLöytyi_1 + "\n'" + nmapPath + "'.\n\n" + statusText_nmapSovellusLöytyi_2;
                 scanAvaTraceUnit.Visible = true;
             }
 
@@ -311,7 +339,7 @@ namespace AvaTrace_APN_Editor
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Tässä esimerkissä kysytään käyttäjältä, haluaako hän varmasti sulkea sovelluksen.
-            if (MessageBox.Show("Haluatko varmasti sulkea sovelluksen?", "AvaTraceAPN Editor", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (MessageBox.Show(messageBox_HaluatkoSulkeaSovelluksen, "AvaTraceAPN Editor", MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 e.Cancel = true;  // Estä sovelluksen sulkeminen
             }
@@ -331,9 +359,9 @@ namespace AvaTrace_APN_Editor
         private void Form1_Load(object sender, EventArgs e)
         {
             this.FormClosing += MainForm_FormClosing;
-            label1.Visible = false;
-            label4.Visible = false;
-            label3.Visible = false;
+            APNAddressInfoText.Visible = false;
+            pickUpAddressFromList.Visible = false;
+            addAddressManually.Visible = false;
             apnComboBox.Visible = false;
             apnTextBox.Visible = false;
             applyApnAddressButton.Visible = false;
@@ -343,12 +371,16 @@ namespace AvaTrace_APN_Editor
             quitButton.Visible = false;
             confirmedImage.Visible = false;
             confirmedImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.confirmed_1.png"));
+            engLanguageRadioButton.Visible = true;
+            finLanguageRadioButton.Visible = true;
+            engLanguageRadioButton.Checked = true;
+
 
             loadingImage.Visible = false;
-            apnComboBox.Items.Add("Elisa (IoT/Pool) - APN osoitetta ei määritetä");
-            apnComboBox.Items.Add("DNA (IoT) - APN osoitetta ei määritetä");
-            apnComboBox.Items.Add("Telia (IoT/Pool) - APN osoite määritetään");
-            apnComboBox.Items.Add("Määrittele APN-osoite manuaalisesti");
+            apnComboBox.Items.Add("Elisa (IoT/Pool)");
+            apnComboBox.Items.Add("DNA (IoT)");
+            apnComboBox.Items.Add("Telia (IoT/Pool)");
+            apnComboBox.Items.Add("Define APN-address manually");
             loadingImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.Spinner-2.gif"));
 
             avaImage.Image = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("AvaTrace_APN_Editor.AVAMonitoring-Produkt-M80-1.png"));
@@ -359,7 +391,7 @@ namespace AvaTrace_APN_Editor
             this.Invoke((MethodInvoker)delegate
             {
                 quitButton.Visible = true;
-                statusText.Text = "Yhteyttä muodostetaan, tässä saattaa kestää hetki..";
+                statusText.Text = statusText_yhteyttäMuodostetaan;
                 scanAvaTraceUnit.Visible = false;
                 loadingImage.Visible = true;
             });
@@ -378,16 +410,16 @@ namespace AvaTrace_APN_Editor
         {
             switch (apnComboBox.SelectedItem.ToString())
             {
-                case "Elisa (IoT/Pool) - APN osoitetta ei määritetä":
+                case "Elisa (IoT/Pool)":
                     selectedSimProviderDomain = "\"\"";
                     break;
-                case "DNA (IoT) - APN osoitetta ei määritetä":
+                case "DNA (IoT)":
                     selectedSimProviderDomain = "\"\"";
                     break;
-                case "Telia (IoT/Pool) - APN osoite määritetään":
+                case "Telia (IoT/Pool)":
                     selectedSimProviderDomain = "internet.telia.iot";
                     break;
-                case "Määrittele APN-osoite manuaalisesti":
+                case "Define APN-address manually":
                     selectedSimProviderDomain = "manual";
                     break;
                 default:
@@ -397,12 +429,12 @@ namespace AvaTrace_APN_Editor
 
             if (selectedSimProviderDomain == "manual")
             {
-                label3.Visible = true;
+                addAddressManually.Visible = true;
                 apnTextBox.Visible = true;
             }
             else
             {
-                label3.Visible = false;
+                addAddressManually.Visible = false;
                 apnTextBox.Visible = false;
             }
         }
@@ -432,6 +464,73 @@ namespace AvaTrace_APN_Editor
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void engLanguageRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            startButton.Text = "Check Nmap-application installation";
+            selectedLanguage = "english";
+            confirmedImage.Location = new Point(255, confirmedImage.Location.Y);
+
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            statusText_yhteysMuodostettuOnnistuneesti = Strings.statusText_yhteysMuodostettuOnnistuneesti;
+            currentApnAddress_nykyinenOsoite = Strings.currentApnAddress_nykyinenOsoite;
+            statusText_apnOsoitettaEiLöytynyt = Strings.statusText_apnOsoitettaEiLöytynyt;
+            statusText_osoitettaAPNosoitettaVaihdetaan = Strings.statusText_osoitettaAPNosoitettaVaihdetaan;
+            currentApnAddress_APNosoitteenVaihtoOnnistuiEiApnOsoitettaMääritelty = Strings.currentApnAddress_APNosoitteenVaihtoOnnistuiEiApnOsoitettaMääritelty;
+            currentApnAddress_APNosoiteVaihdettu_1 = Strings.currentApnAddress_APNosoiteVaihdettu_1;
+            currentApnAddress_APNosoiteVaihdettu_2 = Strings.currentApnAddress_APNosoiteVaihdettu_2;
+            statusText_APNosoitettaEiLöytynytSuljeSovellus = Strings.statusText_APNosoitettaEiLöytynytSuljeSovellus;
+            statusText_nmapAsennustaEiLöydy = Strings.statusText_nmapAsennustaEiLöydy;
+            statusText_nmapSovellusLöytyi_1 = Strings.statusText_nmapSovellusLöytyi_1;
+            statusText_nmapSovellusLöytyi_2 = Strings.statusText_nmapSovellusLöytyi_2;
+            statusText_nmapSovellustaEtsitään = Strings.statusText_nmapSovellustaEtsitään;
+            messageBox_HaluatkoSulkeaSovelluksen = Strings.messageBox_HaluatkoSulkeaSovelluksen;
+            statusText_yhteyttäMuodostetaan = Strings.statusText_yhteyttäMuodostetaan;
+            scanAvaTraceUnitButton_text = Strings.scanAvaTraceUnitButton_text;
+            quitButton_text = Strings.quitButton_text;
+            applyApnAddressButton_text = Strings.applyApnAddressButton_text;
+            APNAddressInfoText.Text = Strings.APNAddressInfoText_text;
+            pickUpAddressFromList.Text = Strings.pickUpAddressFromList;
+            addAddressManually.Text = Strings.addAddressManually;
+            currentApnAddress_apnOsoitettaEiOleMääritetty = Strings.apnOsoitettaEiOleMääritetty;
+            scanAvaTraceUnit.Text = scanAvaTraceUnitButton_text;
+            quitButton.Text = quitButton_text;
+            applyApnAddressButton.Text = applyApnAddressButton_text;
+
+        }
+
+        private void finLanguageRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            startButton.Text = "Aloita tarkistamalla Nmap-sovelluksen sijainti";
+            selectedLanguage = "finnish";
+            confirmedImage.Location = new Point(245, confirmedImage.Location.Y);
+
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fi-FI");
+            statusText_yhteysMuodostettuOnnistuneesti = Strings.statusText_yhteysMuodostettuOnnistuneesti;
+            currentApnAddress_nykyinenOsoite = Strings.currentApnAddress_nykyinenOsoite;
+            statusText_apnOsoitettaEiLöytynyt = Strings.statusText_apnOsoitettaEiLöytynyt;
+            statusText_osoitettaAPNosoitettaVaihdetaan = Strings.statusText_osoitettaAPNosoitettaVaihdetaan;
+            currentApnAddress_APNosoitteenVaihtoOnnistuiEiApnOsoitettaMääritelty = Strings.currentApnAddress_APNosoitteenVaihtoOnnistuiEiApnOsoitettaMääritelty;
+            currentApnAddress_APNosoiteVaihdettu_1 = Strings.currentApnAddress_APNosoiteVaihdettu_1;
+            currentApnAddress_APNosoiteVaihdettu_2 = Strings.currentApnAddress_APNosoiteVaihdettu_2;
+            statusText_APNosoitettaEiLöytynytSuljeSovellus = Strings.statusText_APNosoitettaEiLöytynytSuljeSovellus;
+            statusText_nmapAsennustaEiLöydy = Strings.statusText_nmapAsennustaEiLöydy;
+            statusText_nmapSovellusLöytyi_1 = Strings.statusText_nmapSovellusLöytyi_1;
+            statusText_nmapSovellusLöytyi_2 = Strings.statusText_nmapSovellusLöytyi_2;
+            statusText_nmapSovellustaEtsitään = Strings.statusText_nmapSovellustaEtsitään;
+            messageBox_HaluatkoSulkeaSovelluksen = Strings.messageBox_HaluatkoSulkeaSovelluksen;
+            statusText_yhteyttäMuodostetaan = Strings.statusText_yhteyttäMuodostetaan;
+            scanAvaTraceUnitButton_text = Strings.scanAvaTraceUnitButton_text;
+            quitButton_text = Strings.quitButton_text;
+            applyApnAddressButton_text = Strings.applyApnAddressButton_text;
+            APNAddressInfoText.Text = Strings.APNAddressInfoText_text;
+            pickUpAddressFromList.Text = Strings.pickUpAddressFromList;
+            addAddressManually.Text = Strings.addAddressManually;
+            currentApnAddress_apnOsoitettaEiOleMääritetty = Strings.apnOsoitettaEiOleMääritetty;
+            scanAvaTraceUnit.Text = scanAvaTraceUnitButton_text;
+            quitButton.Text = quitButton_text;
+            applyApnAddressButton.Text = applyApnAddressButton_text;
         }
     }
 }
